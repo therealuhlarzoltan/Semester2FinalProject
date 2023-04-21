@@ -13,6 +13,12 @@ namespace Semester2FinalProject
         public event MegbizasNemTeljesithetoKezelo MegbizasNemTeljesitheto;
         public event HataridoTullepesKezelo HataridoTullepes;
 
+        public BeosztasKezelo(Megbizas aktualisMegbizas, BeosztottLista beosztottak)
+        {
+            this.aktualisMegbizas = aktualisMegbizas;
+            this.beosztottak = beosztottak;
+        }
+
 
     }
 }

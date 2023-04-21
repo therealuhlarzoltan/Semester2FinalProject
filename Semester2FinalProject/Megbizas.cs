@@ -13,9 +13,10 @@ namespace Semester2FinalProject
 
         public IFeladat[] Feladatok;
 
-        public Megbizas(string megbizo, IFeladat[] feladatok)
+        public Megbizas(string megbizo, string megnevezes, IFeladat[] feladatok)
         {
             Megbizo = megbizo;
+            Megnevezes = megnevezes;
             Feladatok = feladatok;
         }
     }
