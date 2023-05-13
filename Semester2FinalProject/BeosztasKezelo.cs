@@ -10,14 +10,24 @@ namespace Semester2FinalProject
     {
         private Megbizas aktualisMegbizas;
         private BeosztottLista beosztottak;
-        public event MegbizasNemTeljesithetoKezelo MegbizasNemTeljesitheto;
-        public event HataridoTullepesKezelo HataridoTullepes;
+        public event IdoIgenyTullepesKezelo IdoIgenyTullepes;
 
         public BeosztasKezelo(Megbizas aktualisMegbizas, BeosztottLista beosztottak)
         {
             this.aktualisMegbizas = aktualisMegbizas;
             this.beosztottak = beosztottak;
         }
+
+        public IFeladat[] BeosztasKeszites()
+        {
+            if (aktualisMegbizas.Feladatok.Length > beosztottak.Hossz())
+            {
+                throw new MegbizasNemTeljesithetoKivetel(aktualisMegbizas);
+            }
+
+            return null;
+        }
+
 
 
     }

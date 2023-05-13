@@ -51,12 +51,11 @@
     <Compile Include="Eredmeny.cs" />
     <Compile Include="Feladat.cs" />
     <Compile Include="FrontendFeladat.cs" />
-    <Compile Include="HataridoTullepesKezelo.cs" />
+    <Compile Include="IdoIgenyTullepesKezelo.cs" />
     <Compile Include="HibasMegbizasKivetel.cs" />
-    <Compile Include="MegbizasNemTeljesitheto.cs" />
+    <Compile Include="MegbizasNemTeljesithetoKivetel.cs" />
     <Compile Include="IFeladat.cs" />
     <Compile Include="Megbizas.cs" />
-    <Compile Include="MegbizasNemTeljesithetoKezelo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

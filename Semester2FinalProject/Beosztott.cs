@@ -18,5 +18,10 @@ namespace Semester2FinalProject
             MunkaOrak = munkaOrak;
             SzakmaiErtekeles = szakmaiErtekeles;
         }
+
+        public override string ToString()
+        {
+            return $"Név: {Nev}, Munkaórák: {MunkaOrak}, Szakmai értékelés: {SzakmaiErtekeles}";
+        }
     }
 }

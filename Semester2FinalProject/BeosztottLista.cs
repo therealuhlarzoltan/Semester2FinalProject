@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -66,14 +67,83 @@ namespace Semester2FinalProject
 
         }
 
+        public int BeosztottKereso(ref Beosztott beosztott)
+        {
+            int szamlalo = 0;
+            ListaElem aktualisElem = fej;
+
+            while (aktualisElem != null && aktualisElem.Beosztott != beosztott)
+            {
+                aktualisElem = aktualisElem.Kovetkezo;
+                szamlalo++;
+            }
+
+            return szamlalo;
+
+
+        }
+
         public void Eltavolitas(int index)
         {
+            int szamlalo = 0;
+            ListaElem aktualisElem = fej;
+            ListaElem elozoElem = null;
+
+            while (aktualisElem != null && szamlalo != index)
+            {
+                elozoElem = aktualisElem;
+                aktualisElem = aktualisElem.Kovetkezo;
+                szamlalo++;
+            }
+
+            if (elozoElem ==  null)
+            {
+                fej = aktualisElem.Kovetkezo;
+            }
+            else
+            {
+                if (aktualisElem.Kovetkezo == null)
+                {
+                    elozoElem.Kovetkezo = null;
+                }
+                else
+                {
+                    elozoElem.Kovetkezo = aktualisElem.Kovetkezo;
+                }
+            }
+
+            
 
         }
 
         public Beosztott BeosztottIndex(int index)
         {
-            return null;
+            int szamlalo = 0;
+            ListaElem aktualisElem = fej;
+
+            while (aktualisElem != null && szamlalo != index)
+            {
+                aktualisElem = aktualisElem.Kovetkezo;
+                szamlalo++;
+            }
+
+            return aktualisElem.Beosztott;
+        }
+
+        public int Hossz()
+        {
+            int hossz = 0;
+
+            ListaElem aktualisElem = fej;
+
+            while (aktualisElem != null)
+            {
+                hossz++;
+                aktualisElem = aktualisElem.Kovetkezo;
+            }
+
+
+            return hossz;
         }
 
 

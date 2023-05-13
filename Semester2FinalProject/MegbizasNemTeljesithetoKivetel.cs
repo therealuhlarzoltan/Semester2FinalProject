@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace Semester2FinalProject
 {
-    internal class MegbizasNemTeljesitheto : Exception
+    internal class MegbizasNemTeljesithetoKivetel : Exception
     {
         public Megbizas Megbizas { get; }
-        public MegbizasNemTeljesitheto(Megbizas megbizas) : base()
+        public MegbizasNemTeljesithetoKivetel(Megbizas megbizas) : base()
         {
             Megbizas = megbizas;
         }
