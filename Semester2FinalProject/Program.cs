@@ -44,7 +44,7 @@ namespace Semester2FinalProject
         
         static void Main(string[] args)
         {
-            ListaTeszt();
+            //ListaTeszt();
 
             string[] megbizasAdatok;
             BeosztottLista beosztottLista;
@@ -81,7 +81,7 @@ namespace Semester2FinalProject
             catch (MegbizasNemTeljesithetoKivetel kivetel)
             {
                 Console.WriteLine();
-                Console.WriteLine($"A {kivetel.Megbizas.Megnevezes} megbízást nem lehet teljesíteni -- Nincs elég besoztott a teljesítéshez!");
+                Console.WriteLine($"A megbízást nem lehet teljesíteni -- Nincs elég besoztott a teljesítéshez!");
             }
             
 

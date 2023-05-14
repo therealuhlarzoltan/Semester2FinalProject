@@ -24,7 +24,7 @@ namespace Semester2FinalProject
                 for (int i = 0; i < beosztas.Length; i++)
                 {
                     Feladat feladat = beosztas[i] as Feladat;
-                    streamWriter.WriteLine($"Feladat: {feladat.Megnevezes}:");
+                    streamWriter.WriteLine($"Feladat: {feladat.Megnevezes}");
                     streamWriter.WriteLine($"Kezdődátum: {feladat.KezdoDatum.ToLongDateString()}");
                     streamWriter.WriteLine($"Időigény: {feladat.IdoIgeny} óra");
                     megbizasMunkaOrak += feladat.IdoIgeny;
@@ -38,7 +38,7 @@ namespace Semester2FinalProject
                     {
                         streamWriter.WriteLine(beosztottak.BeosztottIndex(j).ToString());
                         feladatSzakmaiÉrtékelése += beosztottak.BeosztottIndex(j).SzakmaiErtekeles;
-                        feladatSzakmaiÉrtékelése += megbizasSzakmaiÉrtékelése;
+                        megbizasSzakmaiÉrtékelése += feladatSzakmaiÉrtékelése;
                     }
                     streamWriter.WriteLine();
                 }

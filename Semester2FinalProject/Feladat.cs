@@ -11,6 +11,9 @@ namespace Semester2FinalProject
         public string Megnevezes { get; }
         public DateTime KezdoDatum { get; }
         public int IdoIgeny { get; }
+        public bool Kesz { get; private set; }
+
+        public int HatralevoIdo { get; private set; }
 
         public BeosztottLista Beosztottak { get; }
 
@@ -20,11 +23,13 @@ namespace Semester2FinalProject
             KezdoDatum = kezdoDatum;
             IdoIgeny = idoIgeny;
             Beosztottak = new BeosztottLista();
+            HatralevoIdo = idoIgeny;
+            Kesz = false;
         }
 
         public bool KepesElvegezni(Beosztott beosztott)
         {
-            if (beosztott.MunkaOrak >= IdoIgeny)
+            if (beosztott.MunkaOrak >= HatralevoIdo)
             {
                 return true;
             }
@@ -33,15 +38,26 @@ namespace Semester2FinalProject
 
         }
 
-        public void BesoztottHozzaadas(Beosztott beosztott)
+
+        public void BeosztottHozzaadas(Beosztott beosztott)
         {
             Beosztottak.Hozzaadas(beosztott);
+            HatralevoIdo -= beosztott.MunkaOrak;
+            if (HatralevoIdo <= 0)
+            {
+                Kesz = true;
+            }
         }
 
         public void BesoztottEltavolitas(Beosztott beosztott)
         {
             int torlesIndex = Beosztottak.BeosztottKereso(ref beosztott);
             Beosztottak.Eltavolitas(torlesIndex);
+            HatralevoIdo += beosztott.MunkaOrak;
+            if (HatralevoIdo > 0)
+            {
+                Kesz = false;
+            }
         }
 
         public bool IdoTullepes()
@@ -74,6 +90,19 @@ namespace Semester2FinalProject
             }
 
             return munkaOrak;
+        }
+
+        public int OsszesSzakertelem()
+        {
+            int szakertelem = 0;
+            int beosztottak = Beosztottak.Hossz();
+
+            for (int i = 0; i < beosztottak; i++)
+            {
+                szakertelem += Beosztottak.BeosztottIndex(i).SzakmaiErtekeles;
+            }
+
+            return szakertelem;
         }
 
 

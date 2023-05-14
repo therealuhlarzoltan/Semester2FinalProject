@@ -78,7 +78,13 @@ namespace Semester2FinalProject
                 szamlalo++;
             }
 
-            return szamlalo;
+            if (this.BeosztottIndex(szamlalo) == beosztott)
+            {
+                return szamlalo;
+            }
+
+            return -1;
+            
 
 
         }

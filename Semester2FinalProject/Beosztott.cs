@@ -9,7 +9,7 @@ namespace Semester2FinalProject
     internal class Beosztott
     {
         public string Nev { get; }
-        public int MunkaOrak { get; }
+        public int MunkaOrak { get; set; }
         public int SzakmaiErtekeles { get; }
 
         public Beosztott(string nev, int munkaOrak, int szakmaiErtekeles)

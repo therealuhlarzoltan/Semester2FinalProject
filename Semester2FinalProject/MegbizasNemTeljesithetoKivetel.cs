@@ -8,10 +8,6 @@ namespace Semester2FinalProject
 {
     internal class MegbizasNemTeljesithetoKivetel : Exception
     {
-        public Megbizas Megbizas { get; }
-        public MegbizasNemTeljesithetoKivetel(Megbizas megbizas) : base()
-        {
-            Megbizas = megbizas;
-        }
+        public MegbizasNemTeljesithetoKivetel() : base() {}
     }
 }
