@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Semester2FinalProject
 {
+    // A bemeneti adatokból létrehozandó megbízás benne a feladatok tömbjével
     internal class Megbizas
     {
         public string Megbizo { get; }

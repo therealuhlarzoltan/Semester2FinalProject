@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace Semester2FinalProject
 {
+    // Az elkészült beosztás txt fájlba való exportálásához szükséges metódusok "gyűjteménye"
     internal static class Eredmeny
     {
         public static void BeosztasMentese(Megbizas megbizas, IFeladat[] beosztas)
@@ -17,7 +18,7 @@ namespace Semester2FinalProject
                 streamWriter.WriteLine($"{megbizas.Megbizo} - {megbizas.Megnevezes} időbeosztás:");
                 streamWriter.WriteLine();
 
-                int megbizasSzakmaiÉrtékelése = 0;
+                int megbizasSzakmaiErtekelese = 0;
                 int megbizasMunkaOrak = 0;
                 int megbizasTenylegesMunkaorak = 0;
 
@@ -28,23 +29,19 @@ namespace Semester2FinalProject
                     streamWriter.WriteLine($"Kezdődátum: {feladat.KezdoDatum.ToLongDateString()}");
                     streamWriter.WriteLine($"Időigény: {feladat.IdoIgeny} óra");
                     megbizasMunkaOrak += feladat.IdoIgeny;
-                    streamWriter.WriteLine($"Ténylegesen ráfordított idő: {feladat.OsszesMunkaOra()}");
-                    megbizasTenylegesMunkaorak += feladat.OsszesMunkaOra();
-
-                    streamWriter.WriteLine("A feladaton dolgozó beosztottak:");
-                    BeosztottLista beosztottak = feladat.Beosztottak;
-                    int feladatSzakmaiÉrtékelése = 0;
-                    for (int j = 0; j < beosztottak.Hossz(); j++)
-                    {
-                        streamWriter.WriteLine(beosztottak.BeosztottIndex(j).ToString());
-                        feladatSzakmaiÉrtékelése += beosztottak.BeosztottIndex(j).SzakmaiErtekeles;
-                        megbizasSzakmaiÉrtékelése += feladatSzakmaiÉrtékelése;
-                    }
+                    streamWriter.WriteLine($"Ténylegesen ráfordított idő: {feladat.OsszesMunkaOra} óra");
+                    megbizasTenylegesMunkaorak += feladat.OsszesMunkaOra;
+                    streamWriter.WriteLine("A feladaton dolgozó beosztott:");
+                    
+                    streamWriter.WriteLine(feladat.Beosztott.ToString());
+                    int feladatSzakmaiErtekelese = feladat.OsszesSzakertelem;
+                    
                     streamWriter.WriteLine();
+                    megbizasSzakmaiErtekelese += feladatSzakmaiErtekelese;
                 }
                 streamWriter.WriteLine($"Tervezett munkaórák: {megbizasMunkaOrak} óra");
                 streamWriter.WriteLine($"Ténylegesen ráfordított munkaórák: {megbizasTenylegesMunkaorak} óra");
-                streamWriter.WriteLine($"A megbízáson dolgozó beosztottak összesített szakmai értékelése: {megbizasSzakmaiÉrtékelése}");
+                streamWriter.WriteLine($"A megbízáson dolgozó beosztottak összesített szakmai értékelése: {megbizasSzakmaiErtekelese}");
 
                 streamWriter.Close();
             }

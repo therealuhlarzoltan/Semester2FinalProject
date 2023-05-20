@@ -8,51 +8,28 @@ namespace Semester2FinalProject
 {
     internal class Program
     {
-        static void ListaTeszt()
-        {
-            BeosztottLista lista = new BeosztottLista();
-            Beosztott elso = new Beosztott("első", 1, 1);
-            Beosztott masodik = new Beosztott("második", 2, 1);
-            Beosztott harmadik = new Beosztott("harmadik", 3, 1);
-            Beosztott negyedik = new Beosztott("negyedik", 4, 1);
-            Beosztott otodik = new Beosztott("ötödik", 5, 1);
-
-            lista.Hozzaadas(elso);
-            lista.Hozzaadas(masodik);
-            lista.Hozzaadas(harmadik);
-            lista.Hozzaadas(negyedik);
-            lista.Hozzaadas(otodik);
-
-            int hossz = lista.Hossz();
-            Beosztott elsoBeosztott = lista.BeosztottIndex(0);
-            Beosztott otodikBeosztott = lista.BeosztottIndex(4);
-            Beosztott harmadikBeosztott = lista.BeosztottIndex(2);
-
-            int index1 = lista.BeosztottKereso(ref elso);
-            int index3 = lista.BeosztottKereso(ref harmadik);
-            int index5 = lista.BeosztottKereso(ref otodik);
-
-            lista.Eltavolitas(0);
-            lista.Eltavolitas(3);
-            lista.Eltavolitas(2);
-        }
+      
         static void IdoTullepesKijelzo(IFeladat feladat)
         {
             Feladat feladat1 = feladat as Feladat;
-            Console.WriteLine($"A {feladat1.Megnevezes} feladatnál időtúllépés történt; tervezett munkaórák : {feladat1.IdoIgeny}, ténylegesen ráfordított munkaórák: {feladat1.OsszesMunkaOra()}");
+            Console.WriteLine($"A(z) {feladat1.Megnevezes} feladatnál időtúllépés történt; tervezett munkaórák : {feladat1.IdoIgeny}, ténylegesen ráfordított munkaórák: {feladat1.OsszesMunkaOra}");
         }
         
         static void Main(string[] args)
         {
             //ListaTeszt();
 
+            // Szükséges változók deklarálása
             string[] megbizasAdatok;
             BeosztottLista beosztottLista;
             IFeladat[] feladatok;
             IFeladat[] beosztas;
+
+            // Szükséges változók inicializálása, a try blokkok miatt szükséges
             Megbizas megbizas = null;
             BeosztasKezelo beosztasKezelo = null;
 
+            // Az összes szükséges adatot megpróbáljuk betölteni a txt-ből
             try
             {
                 Beallitasok.Betoltes();
@@ -65,9 +42,11 @@ namespace Semester2FinalProject
             }
             catch (HibasMegbizasKivetel)
             {
+                // A betöltés közben hiba történt, vagyis a txt szövege nem követte a megadott formátumot
                 Console.WriteLine("A program nem tudta kezelni a megbízást -- A megbízáshoz tartozó txt fájl hibás adatokat tartalmazott!");
             }
 
+            // Megpróbáljuk elkészíteni a besoztást
             try
             {
                 beosztas = beosztasKezelo?.BeosztasKeszites();
@@ -81,7 +60,7 @@ namespace Semester2FinalProject
             catch (MegbizasNemTeljesithetoKivetel kivetel)
             {
                 Console.WriteLine();
-                Console.WriteLine($"A megbízást nem lehet teljesíteni -- Nincs elég besoztott a teljesítéshez!");
+                Console.WriteLine($"A megbízást nem lehet teljesíteni!");
             }
             
 

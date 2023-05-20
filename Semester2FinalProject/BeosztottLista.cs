@@ -7,8 +7,10 @@ using System.Threading.Tasks;
 
 namespace Semester2FinalProject
 {
+    // A feladat által meghatározott Beosztott objektumokat tárolni képes láncolt lista
     internal class BeosztottLista
     {
+        // A láncolt lista elemei bennük a következő elem mutatójával és a Beosztott objektummal
         private class ListaElem
         {
             public ListaElem Kovetkezo { get; set; }
@@ -37,7 +39,7 @@ namespace Semester2FinalProject
             }
             else
             {
-                if (fej.Beosztott.MunkaOrak > beosztott.MunkaOrak)
+                if (fej.Beosztott.MunkaOrak >= beosztott.MunkaOrak)
                 {
                     ListaElem ujElem = new ListaElem(beosztott, fej);
                     fej = ujElem;
@@ -136,20 +138,23 @@ namespace Semester2FinalProject
             return aktualisElem.Beosztott;
         }
 
-        public int Hossz()
+        public int Hossz
         {
-            int hossz = 0;
-
-            ListaElem aktualisElem = fej;
-
-            while (aktualisElem != null)
+            get
             {
-                hossz++;
-                aktualisElem = aktualisElem.Kovetkezo;
+                int hossz = 0;
+
+                ListaElem aktualisElem = fej;
+
+                while (aktualisElem != null)
+                {
+                    hossz++;
+                    aktualisElem = aktualisElem.Kovetkezo;
+                }
+
+
+                return hossz;
             }
-
-
-            return hossz;
         }
 
 

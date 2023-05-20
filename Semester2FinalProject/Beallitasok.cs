@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 
 namespace Semester2FinalProject
 {
+    // A megbízás txt fájlból való beolvasásához szükséges metódusok "gyűjteménye"
+    // A metódusok HibasMegbizasKivetel típusú kivételt dobnak ha a txt fájl tartalma nem megfelelő
     internal static class Beallitasok
     {
         static string[] beolvasottSorok;

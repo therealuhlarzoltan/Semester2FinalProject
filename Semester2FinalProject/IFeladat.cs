@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Semester2FinalProject
 {
+    // A feladat által meghatározott interfész amit minden feladat megvalósít
     internal interface IFeladat
     {
         DateTime KezdoDatum { get; }

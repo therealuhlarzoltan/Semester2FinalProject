@@ -6,30 +6,29 @@ using System.Threading.Tasks;
 
 namespace Semester2FinalProject
 {
+    // Minden feladat ős osztálya
     internal abstract class Feladat : IFeladat
     {
         public string Megnevezes { get; }
         public DateTime KezdoDatum { get; }
         public int IdoIgeny { get; }
-        public bool Kesz { get; private set; }
 
         public int HatralevoIdo { get; private set; }
-
-        public BeosztottLista Beosztottak { get; }
+        public bool Kesz { get; private set; }
+        public Beosztott Beosztott { get; private set; }
 
         public Feladat(string megnevezes, DateTime kezdoDatum, int idoIgeny)
         {
             Megnevezes = megnevezes;
             KezdoDatum = kezdoDatum;
             IdoIgeny = idoIgeny;
-            Beosztottak = new BeosztottLista();
             HatralevoIdo = idoIgeny;
             Kesz = false;
         }
 
         public bool KepesElvegezni(Beosztott beosztott)
         {
-            if (beosztott.MunkaOrak >= HatralevoIdo)
+            if (beosztott.MunkaOrak >= IdoIgeny)
             {
                 return true;
             }
@@ -41,7 +40,7 @@ namespace Semester2FinalProject
 
         public void BeosztottHozzaadas(Beosztott beosztott)
         {
-            Beosztottak.Hozzaadas(beosztott);
+            Beosztott = beosztott;
             HatralevoIdo -= beosztott.MunkaOrak;
             if (HatralevoIdo <= 0)
             {
@@ -49,62 +48,46 @@ namespace Semester2FinalProject
             }
         }
 
-        public void BesoztottEltavolitas(Beosztott beosztott)
+        public void BesoztottEltavolitas()
         {
-            int torlesIndex = Beosztottak.BeosztottKereso(ref beosztott);
-            Beosztottak.Eltavolitas(torlesIndex);
-            HatralevoIdo += beosztott.MunkaOrak;
+            HatralevoIdo += Beosztott.MunkaOrak;
+            Beosztott = null;
             if (HatralevoIdo > 0)
             {
                 Kesz = false;
             }
         }
 
-        public bool IdoTullepes()
+        
+
+        public bool IdoTullepes
         {
-            int munkaOrak = 0;
-            int beosztottak = Beosztottak.Hossz();
-
-            for (int i = 0; i < beosztottak; i++)
+            get
             {
-                munkaOrak += Beosztottak.BeosztottIndex(i).MunkaOrak;
+                return HatralevoIdo < 0;
             }
-
-            if (munkaOrak > IdoIgeny)
-            {
-                return true;
-            }
-
-            return false;
-
         }
 
-        public int OsszesMunkaOra()
+        public int OsszesMunkaOra
         {
-            int munkaOrak = 0;
-            int beosztottak = Beosztottak.Hossz();
-
-            for (int i = 0; i < beosztottak; i++)
+            get
             {
-                munkaOrak += Beosztottak.BeosztottIndex(i).MunkaOrak;
+                return Beosztott.MunkaOrak;
             }
-
-            return munkaOrak;
         }
 
-        public int OsszesSzakertelem()
+        public int OsszesSzakertelem
         {
-            int szakertelem = 0;
-            int beosztottak = Beosztottak.Hossz();
-
-            for (int i = 0; i < beosztottak; i++)
+            get
             {
-                szakertelem += Beosztottak.BeosztottIndex(i).SzakmaiErtekeles;
+                return Beosztott.SzakmaiErtekeles;
             }
-
-            return szakertelem;
         }
 
+        public override string ToString()
+        {
+            return $"Megnevezés: {Megnevezes}; Kezdő dátum: {KezdoDatum}; Idő igény: {IdoIgeny}";
+        }
 
 
     }

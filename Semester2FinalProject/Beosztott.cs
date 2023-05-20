@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Semester2FinalProject
 {
+    // A feladat által meghatározott Beosztott osztály
     internal class Beosztott
     {
         public string Nev { get; }
@@ -19,6 +20,7 @@ namespace Semester2FinalProject
             SzakmaiErtekeles = szakmaiErtekeles;
         }
 
+        // A beosztás txt fájlba való exportálásakor van szerepe
         public override string ToString()
         {
             return $"Név: {Nev}, Munkaórák: {MunkaOrak}, Szakmai értékelés: {SzakmaiErtekeles}";
