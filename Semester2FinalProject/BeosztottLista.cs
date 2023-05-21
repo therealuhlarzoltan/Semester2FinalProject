@@ -31,6 +31,7 @@ namespace Semester2FinalProject
 
         private ListaElem fej;
 
+        // Beszúrás munka órák szerinti sorrendben
         public void Hozzaadas(Beosztott beosztott)
         {
             if (fej == null)
@@ -69,6 +70,7 @@ namespace Semester2FinalProject
 
         }
 
+        // Beosztott objektum indexének kereséses a listában
         public int BeosztottKereso(ref Beosztott beosztott)
         {
             int szamlalo = 0;
@@ -91,6 +93,7 @@ namespace Semester2FinalProject
 
         }
 
+        // Adott indexű objektum elvtávolítása a listából
         public void Eltavolitas(int index)
         {
             int szamlalo = 0;
@@ -124,6 +127,7 @@ namespace Semester2FinalProject
 
         }
 
+        // Adott indexű Beosztott objektum visszaadása a listából
         public Beosztott BeosztottIndex(int index)
         {
             int szamlalo = 0;
@@ -138,6 +142,7 @@ namespace Semester2FinalProject
             return aktualisElem.Beosztott;
         }
 
+        // A lista hosszát megadó csak olvasható tulajdonság
         public int Hossz
         {
             get

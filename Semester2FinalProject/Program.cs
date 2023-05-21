@@ -17,7 +17,6 @@ namespace Semester2FinalProject
         
         static void Main(string[] args)
         {
-            //ListaTeszt();
 
             // Szükséges változók deklarálása
             string[] megbizasAdatok;
@@ -36,8 +35,11 @@ namespace Semester2FinalProject
                 megbizasAdatok = Beallitasok.MegbizasBetoltese();
                 beosztottLista = Beallitasok.BeosztottakBetoltese();
                 feladatok = Beallitasok.FeladatokBetoltese();
+                // Megbízás létrehozása a betöltött adatokból
                 megbizas = new Megbizas(megbizasAdatok[0], megbizasAdatok[1], feladatok);
+                // Megbízás átadása a BeosztásKezelőnek
                 beosztasKezelo = new BeosztasKezelo(megbizas, beosztottLista);
+                // Eseményfigyelő feliratkoztatása
                 beosztasKezelo.IdoIgenyTullepes += IdoTullepesKijelzo;
             }
             catch (HibasMegbizasKivetel)
@@ -57,8 +59,9 @@ namespace Semester2FinalProject
                 }
                 
             }
-            catch (MegbizasNemTeljesithetoKivetel kivetel)
+            catch (MegbizasNemTeljesithetoKivetel)
             {
+                // A megbízás nem teljesíthető a megadott adatokkal
                 Console.WriteLine();
                 Console.WriteLine($"A megbízást nem lehet teljesíteni!");
             }

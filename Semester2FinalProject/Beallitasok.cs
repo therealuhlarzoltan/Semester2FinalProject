@@ -134,6 +134,11 @@ namespace Semester2FinalProject
                 }
             }
 
+            if (feladatSzamlalo == 0)
+            {
+                throw new HibasMegbizasKivetel();
+            }
+
             Feladat[] ujTomb = new Feladat[feladatSzamlalo];
 
             for (int i = 0; i < feladatSzamlalo; i++)

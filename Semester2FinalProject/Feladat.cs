@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Semester2FinalProject
 {
-    // Minden feladat ős osztálya
+    // Minden feladat ős osztálya, a közös metódusok és tulajdonságok itt találhatók
     internal abstract class Feladat : IFeladat
     {
         public string Megnevezes { get; }
@@ -26,6 +26,7 @@ namespace Semester2FinalProject
             Kesz = false;
         }
 
+        // A visszalépéses keresés beállításánál van szerepe
         public bool KepesElvegezni(Beosztott beosztott)
         {
             if (beosztott.MunkaOrak >= IdoIgeny)
@@ -37,7 +38,7 @@ namespace Semester2FinalProject
 
         }
 
-
+        // Beosztott hozzárendelése a feladathoz
         public void BeosztottHozzaadas(Beosztott beosztott)
         {
             Beosztott = beosztott;
@@ -48,6 +49,7 @@ namespace Semester2FinalProject
             }
         }
 
+        // Beosztott eltávolítása
         public void BesoztottEltavolitas()
         {
             HatralevoIdo += Beosztott.MunkaOrak;
@@ -58,8 +60,7 @@ namespace Semester2FinalProject
             }
         }
 
-        
-
+        // Visszaadja hogy optimálisan sikerült-e megoldani a feladatot
         public bool IdoTullepes
         {
             get

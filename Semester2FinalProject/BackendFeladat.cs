@@ -10,6 +10,7 @@ namespace Semester2FinalProject
     {
         public BackendFeladat(string megnevezes, DateTime kezdoDatum, int idoIgeny) : base(megnevezes, kezdoDatum, idoIgeny) { }
 
+        // A feladatok másolásához használt metódus
         public object Clone()
         {
             return new BackendFeladat(Megnevezes, KezdoDatum, IdoIgeny);

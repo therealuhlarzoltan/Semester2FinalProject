@@ -17,8 +17,11 @@ namespace Semester2FinalProject
 
         public BeosztasKezelo(Megbizas aktualisMegbizas, BeosztottLista beosztottak)
         {
+            // Saját adattagok inicializálása
             this.aktualisMegbizas = aktualisMegbizas;
             this.beosztottak = beosztottak;
+
+            // A visszalépéses keresés "beállításai"
             feladatokSzama = aktualisMegbizas.Feladatok.Length;
             jelentkezokSzama = new int[feladatokSzama];
             for (int i = 0; i < feladatokSzama; i++)
@@ -35,15 +38,17 @@ namespace Semester2FinalProject
             }
         }
 
+        // A kívülről látható metódus ami elindítja a beosztás készítést
         public Feladat[] BeosztasKeszites()
         {
 
+            // Nincs elég beosztott
             if (aktualisMegbizas.Feladatok.Length > beosztottak.Hossz)
             {
                 throw new MegbizasNemTeljesithetoKivetel();
             }
 
-
+            // A feladatok másolása --> az eredeti feladat objektumok érintetlenül maradnak
             Feladat[] feladatokMasolata = new Feladat[aktualisMegbizas.Feladatok.Length];
             for (int i = 0; i < feladatokMasolata.Length; i++)
             {
@@ -58,27 +63,36 @@ namespace Semester2FinalProject
                 }
             }
 
+            // Visszalépéses keresés
             KepesElvegezniMatrixFeltoltes(feladatokMasolata, beosztottak);
             Kereses();
+
+            // Időigény szempontjából optimális megoldások kiválogatása
             List<Beosztott[]> optimalisMegoldasok = OptimalisMegoldasokKeresese(aktualisMegbizas.Feladatok);
 
+            // Csak egy optimális megoldás van
             if (optimalisMegoldasok.Count == 1)
             {
+                // Beosztottak hozzárendekése a feladatokhoz
                 for (int i = 0; i < aktualisMegbizas.Feladatok.Length; i++)
                 {
                     feladatokMasolata[i].BeosztottHozzaadas(optimalisMegoldasok.First()[i]);
+                    // Ha idő túllépés történt --> esemény kiváltása
                     if (feladatokMasolata[i].IdoTullepes)
                     {
                         IdoIgenyTullepes(feladatokMasolata[i]);
                     }
                 }
             }
+            // Több optimális megoldás is van
             else
             {
+                // Beosztottak hozzárendekése a feladatokhoz
                 Beosztott[] megoldas = LegnagyobbSzakmaiErtekelesKeresese(optimalisMegoldasok);
                 for (int i = 0; i < aktualisMegbizas.Feladatok.Length; i++)
                 {
                     feladatokMasolata[i].BeosztottHozzaadas(optimalisMegoldasok.First()[i]);
+                    // Ha idő túllépés történt --> esemény kiváltása
                     if (feladatokMasolata[i].IdoTullepes)
                     {
                         IdoIgenyTullepes(feladatokMasolata[i]);

@@ -12,13 +12,17 @@ namespace Semester2FinalProject
     // Arra szolgál hogy a BeosztasKezelo osztály fel tudja használni a metódusait a beosztás elkészítésénél
     internal abstract class VisszalepesesKereses
     {
+        // A visszalépéses keresés beállításai
         protected int feladatokSzama;
         protected int[] jelentkezokSzama;
+        // A visszalépéses keresés értékkészlete
         protected Beosztott[,] jelentkezok;
+        // Az összes lehetésges beosztást tároló lista
         protected List<Beosztott[]> Mind;
+        // Azt mutatja meg hogy az i-edik feladatot képes-e elvégezni a j-edik beosztott
         protected bool[,] kepesElvegezni;
 
-
+        // Meghatározza hogy melyik beosztott milyen feladatokat képes elvégezni
         protected void KepesElvegezniMatrixFeltoltes(Feladat[] feladatok, BeosztottLista beosztottak)
         {
             kepesElvegezni = new bool[feladatok.Length, beosztottak.Hossz];
@@ -31,12 +35,14 @@ namespace Semester2FinalProject
             }
         }
 
+        // Az első szűrő feltétel, ha az aktuális feladatot nem tudja elvégezni a beosztott biztos nem kerülhet az adott heylre a részmegoldásban
         protected bool ft(int feladat, int beosztottIndexe)
         {
             return kepesElvegezni[feladat, beosztottIndexe];
         }
 
-
+        // A második szűrőfeltétel, egy besoztott sem dolgozhat kétszer
+        //
         protected bool fk(int feladat, ref Beosztott beosztott, Beosztott[] Eredmeny)
         {
             int i = 0;
@@ -53,14 +59,17 @@ namespace Semester2FinalProject
 
         }
 
-
+        // A visszalépéses keresést elindító metódus
         protected void Kereses()
         {
             bool van = false;
             Mind = new List<Beosztott[]>();
+            // Az aktuális eredményt (kombinációt) tároló tömb
             Beosztott[] Eredmeny = new Beosztott[feladatokSzama];
+            // A visszalépéses keresés elindítása
             Probal(0, ref van, ref Eredmeny);
 
+            // Nincs olyan kombináció amelyben minden feladatot el tudna végezni valaki --> kivétel dobása
             if (Mind.Count == 0)
             {
                 throw new MegbizasNemTeljesithetoKivetel();
@@ -68,6 +77,7 @@ namespace Semester2FinalProject
             
         }
 
+        // A visszalépéses keresést megvalósító metódus
         protected void Probal(int feladat, ref bool van, ref Beosztott[] Eredmeny)
         {
             int i = 0;
@@ -79,15 +89,19 @@ namespace Semester2FinalProject
                     {
                         Eredmeny[feladat] = jelentkezok[feladat, i];
 
+                        // Az összes feladatot kiosztottuk --> aktuális kombináció hozzáadása az eredményekhez
                         if (feladat == feladatokSzama - 1)
                         {
                             van = true;
+                            // Az aktuális kombináció folyamatosan változik --> a megoldásokhoz az aktuális kombináció jelenlegi állapotáról készült másolatot adjuk
                             Mind.Add((Beosztott[])Eredmeny.Clone());
                         }
                         else
                         {
+                            // Folytatjuk a beosztottak hozzárendelését a feladatokhoz
                             Probal(feladat + 1, ref van, ref Eredmeny);
                         }
+                        // Új kombinációt készítünk
                         Eredmeny[feladat] = null;
                     }
 
@@ -96,10 +110,12 @@ namespace Semester2FinalProject
             }
         }
 
-
+        // Az optimális megoldások halmaza az összes megoldás részhalmaza --> kiválogatás
         protected List<Beosztott[]> OptimalisMegoldasokKeresese(IFeladat[] feladatok)
         {
             List<Beosztott[]> eredmeny = new List<Beosztott[]>();
+
+            // Minimumkiválasztás minden egyes megoldásra
             int minimalisIdoTullepes = int.MaxValue;
 
             foreach (Beosztott[] megoldas in Mind)
@@ -117,6 +133,7 @@ namespace Semester2FinalProject
                 }
             }
 
+            // Ha a megoldás optimális hozzáadjuk az optimális megoldások listájához
             foreach (Beosztott[] megoldas in Mind)
             {
                 int idoTullepes = 0;
@@ -135,7 +152,7 @@ namespace Semester2FinalProject
             return eredmeny;
         }
 
-
+        // Csak egy olyan lehetőségre vagyunk kíváncsiak ahol a beosztottak szakértelme a legnagyobb --> maximumkiválasztás minden megoldásra
         protected Beosztott[] LegnagyobbSzakmaiErtekelesKeresese(List<Beosztott[]> megoldasok)
         {
             int legnagyobbSzakmaiErtekeles = int.MinValue;
